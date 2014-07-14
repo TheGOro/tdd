@@ -1,6 +1,8 @@
 #include <gmock/gmock.h>
 #include <string>
 
+using testing::Eq;
+
 /*
  * Rules for Soundex
  * =================
@@ -21,9 +23,9 @@
 
 class Soundex {
 public:
-    std::string encode(const std::string&) const
+    std::string encode(const std::string& word) const
     {
-        return "A";
+        return word;
     }
 };
 
@@ -34,5 +36,5 @@ TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord)
 {
   Soundex soundex;
   auto encoded = soundex.encode("A");
-  ASSERT_THAT(encoded, testing::Eq("A"));
+  ASSERT_THAT(encoded, Eq("A"));
 }
