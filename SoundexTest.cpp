@@ -1,4 +1,5 @@
 #include <gmock/gmock.h>
+#include <string>
 
 /*
  * Rules for Soundex
@@ -18,7 +19,13 @@
  * 4. Stop when you have a letter and three digits. Zero pad if needed.
  */
 
-class Soundex {};
+class Soundex {
+public:
+    std::string encode(const std::string&) const
+    {
+        return "";
+    }
+};
 
 /*
  * The first rule tells us to retain the first letter of the name.
@@ -26,4 +33,5 @@ class Soundex {};
 TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord)
 {
   Soundex soundex;
+  auto encoded = soundex.encode("A");
 }
