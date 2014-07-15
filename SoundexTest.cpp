@@ -1,54 +1,29 @@
 #include <gmock/gmock.h>
-#include <string>
+#include "Soundex.h"
 
-using testing::Eq;
+using namespace testing;
 
 /*
- * Rules for Soundex
- * =================
- *
- * 1. Retain the first letter. Drop all other occurances of a, e, i, o, u, y, h, w.
- * 2. Replace consonants with digits (after the first letter):
- *     - b, f, p, v: 1
- *     - c, g, j, k, q, s, x, z: 2
- *     - d, t: 3
- *     - i: 4
- *     - m, n: 5
- *     - r: 6
- * 3. If two adjacent letters encode the same number, encode them instead as a single number. Also,
- *    do so if two separated by h or w (but code them twice if separated by a vowel). This rule
- *    also applies to the first letter.
- * 4. Stop when you have a letter and three digits. Zero pad if needed.
+ * Fixture class to eliminate the code duplication in each test
  */
-
-class Soundex {
+class SoundexEncoding : public Test
+{
 public:
-    std::string encode(const std::string& word) const
-    {
-        return word + "000";
-    }
+    Soundex soundex;
 };
 
 /*
  * The first rule tells us to retain the first letter of the name.
  */
-TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord)
+TEST_F(SoundexEncoding, RetainsSoleLetterOfOneLetterWord)
 {
-  Soundex soundex;
-
-  auto encoded = soundex.encode("A");
-
-  ASSERT_THAT(encoded, Eq("A000"));
+  ASSERT_THAT(soundex.encode("A"), Eq("A000"));
 }
 
 /*
  * The fourth rule tells us to zero pad the result to reach 4 digit overall result
  */
-TEST(SoundexEncoding, PadsWithZerosToEnsureThreeDigits)
+TEST_F(SoundexEncoding, PadsWithZerosToEnsureThreeDigits)
 {
-    Soundex soundex;
-
-    auto encoded = soundex.encode("I");
-
-    ASSERT_THAT(encoded, Eq("I000"));
+    ASSERT_THAT(soundex.encode("I"), Eq("I000"));
 }
