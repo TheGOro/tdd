@@ -25,7 +25,7 @@ class Soundex {
 public:
     std::string encode(const std::string& word) const
     {
-        return word;
+        return word + "000";
     }
 };
 
@@ -35,6 +35,20 @@ public:
 TEST(SoundexEncoding, RetainsSoleLetterOfOneLetterWord)
 {
   Soundex soundex;
+
   auto encoded = soundex.encode("A");
-  ASSERT_THAT(encoded, Eq("A"));
+
+  ASSERT_THAT(encoded, Eq("A000"));
+}
+
+/*
+ * The fourth rule tells us to zero pad the result to reach 4 digit overall result
+ */
+TEST(SoundexEncoding, PadsWithZerosToEnsureThreeDigits)
+{
+    Soundex soundex;
+
+    auto encoded = soundex.encode("I");
+
+    ASSERT_THAT(encoded, Eq("I000"));
 }
