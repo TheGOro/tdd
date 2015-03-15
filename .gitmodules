@@ -1,0 +1,8 @@
+[submodule "deps/gmock"]
+	path = deps/gmock
+	url = https://github.com/TheGOro/googlemock
+	ignore = dirty
+[submodule "deps/gtest"]
+	path = deps/gtest
+	url = https://github.com/TheGOro/googletest
+	ignore = dirty
